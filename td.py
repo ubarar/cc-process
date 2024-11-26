@@ -17,7 +17,7 @@ def csv2transactions(path: str) -> list[Transaction]:
     for row in getRows(path):
         description = row[1]
         date = datetime.strptime(row[0], "%m/%d/%Y")
-        amount = float(row[2]) if row[2] else float(row[3])
+        amount = float(row[2]) if row[2] else -1*float(row[3])
 
         transactions.append(Transaction(date, description, amount))
 
