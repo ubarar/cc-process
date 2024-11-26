@@ -1,0 +1,6 @@
+*csv
+*xls
+.DS_store
+pyvenv.cfg
+lib/
+bin/
