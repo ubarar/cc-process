@@ -17,8 +17,10 @@ def parse_amount(amt : str) -> float:
 	return float(amt.replace("$", "").replace(",", ""))
 
 def parse_date(dat : str) -> datetime:
-	return datetime.strptime(dat, "%d %b. %Y")
-
+	try:
+		return datetime.strptime(dat, "%d %b %Y")
+	except:
+		return datetime.strptime(dat, "%d %b. %Y")
 
 # take a matrix, and just give me the rows of transactions
 def mat2trans(mat: list[list[str]]) -> list[Transaction]:
