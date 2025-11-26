@@ -34,7 +34,12 @@ def mat2trans(mat: list[list[str]]) -> list[Transaction]:
 	rows = []
 	for r in mat[i+1:]:
 		description = r[cols['Description']]
-		amount = parse_amount(r[cols['Amount']])
+		amount = float(0)
+		try:
+			amount = parse_amount(r[cols['Amount']])
+		except:
+			amount = parse_amount(r[cols['Description']])
+
 		date = parse_date(r[cols['Date']])
 
 		# special parsing for date
@@ -42,5 +47,5 @@ def mat2trans(mat: list[list[str]]) -> list[Transaction]:
 
 	return rows
 
-def xls2transactions(path: str) -> list[Transaction]:
+def amex_xls_to_transactions(path: str) -> list[Transaction]:
 	return mat2trans(xls2mat(path))

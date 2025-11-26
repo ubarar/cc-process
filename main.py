@@ -1,23 +1,26 @@
 import xlrd
 from datetime import datetime
-from amex import xls2transactions
-from td import csv2transactions
+from amex import amex_xls_to_transactions
+from td import td_csv_to_transactions
+from ing import ing_csv_to_transactions
 import sys
 
 from transaction import Transaction
 
 def transactions2csv(transactions : list[Transaction]):
 	for t in transactions:
-		print(f"{t.date.strftime('%-d %b %Y')},{t.description.replace(',','_')},{t.amount}")
+		print(f"{t.date.strftime('%-d %b %Y')},{t.description.replace(',','_')},{t.amount:.2f}")
 
 def main():
 	transactions = []
 
 	for file in sys.argv[1:]:
-		if file.endswith("xls"):
-			transactions += xls2transactions(file)
+		if "NL" in file and "ING" in file:
+			transactions += ing_csv_to_transactions(file)
+		elif file.endswith("xls"):
+			transactions += amex_xls_to_transactions(file)
 		else:
-			transactions += csv2transactions(file)
+			transactions += td_csv_to_transactions(file)
 	transactions.sort()
 
 	transactions2csv(transactions)
