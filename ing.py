@@ -2,7 +2,7 @@ import csv
 from transaction import Transaction
 from datetime import datetime
 
-rate = 1.6272
+rate = 1.00
 
 def getRows(path: str) -> list[str]:
     rows = []
